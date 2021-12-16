@@ -41,9 +41,10 @@ async def on_message(message):
             await channel.send("thog dont caare about killing you")
     elif message.content.startswith('does thog care'):
         await channel.send("thog dont caare")
-
         
+    if "pog" in message.content.lower() and "not" not in message.content.lower():
+        await message.add_reaction("🇵")
+        await message.add_reaction("🇴")
+        await message.add_reaction("🇬")
 
-    
-    
 client.run(TOKEN)

@@ -35,9 +35,9 @@ async def on_message(message):
 
         choice = decideFate()
   
-        if choice: # rolled a 0
+        if choice: # rolled a 1
             await channel.send("thog pine for violence. where tob? we have job to do.")
-        else: # rolled a 1
+        else: # rolled a 0
             await channel.send("thog dont caare about killing you")
     elif message.content.startswith('does thog care'):
         await channel.send("thog dont caare")

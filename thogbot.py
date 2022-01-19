@@ -4,22 +4,12 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-GUILD = os.getenv('DISCORD_GUILD')
 TOKEN = os.getenv('DISCORD_TOKEN')
 client = discord.Client()
 
 @client.event
 async def on_ready():
-    for guild in client.guilds:
-        if guild.name == GUILD:
-            break
-
-    print(
-        f"{client.user} don't caare\n"
-        f"{guild.name} is pretty cool.\n"
-    )
-    members = '\n - '.join([member.name for member in guild.members])
-    print(f'List of smelly people:\n - {members}')
+    print("initialized!")
 
 @client.event
 async def on_message(message):
@@ -46,5 +36,18 @@ async def on_message(message):
         await message.add_reaction("🇵")
         await message.add_reaction("🇴")
         await message.add_reaction("🇬")
+    
+@client.event
+async def on_reaction_add(reaction, user):
+    message = reaction.message
+    channel = message.channel
+    if user.id == message.author.id:
+        await channel.send("thog not let you star own post, " + message.author.mention)
+        await message.remove_reaction("⭐", user)
+        return
+    if reaction.emoji == "⭐":
+        author = message.author
+        newchannel = client.get_channel(932805793730941008)
+        await newchannel.send(message.content + " (by " + message.author.mention + ")")
 
 client.run(TOKEN)
